@@ -1,4 +1,4 @@
-# Bookstore API
+# Store API
 
 API مبني بـ Rust + Axum + PostgreSQL
 
@@ -17,5 +17,7 @@ API مبني بـ Rust + Axum + PostgreSQL
 - ✅ API تسجيل حساب جديد
 - ✅ API تسجيل الدخول + JWT
 - ✅ حماية الـ routes بالـ JWT
-- ⬜ إدارة الكتب
+- ✅ API التصنيفات (رئيسية وفرعية)
+- ⬜ API عرض التصنيفات
+- ⬜ إدارة المنتجات
 - ⬜ الطلبات
