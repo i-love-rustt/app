@@ -1,11 +1,11 @@
-use axum::{Router, routing::post, middleware};
+use axum::{Router, routing::{post, get}, middleware};
 use sqlx::PgPool;
 use crate::handlers;
 use crate::middleware::auth;
 
 pub fn create_router(pool: PgPool) -> Router {
     let protected = Router::new()
-        .route("/protected-test", post(|| async { "محمي!" }))
+        .route("/categories", post(handlers::create_category))
         .route_layer(middleware::from_fn(auth));
 
     let public = Router::new()

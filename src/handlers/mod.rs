@@ -1,6 +1,8 @@
 use axum::{extract::State, http::StatusCode, Json};
 use sqlx::PgPool;
-use crate::models::{User, CreateUser, LoginUser, Claims, AuthResponse, UserWithPassword};
+
+
+use crate::models::{User, CreateUser, LoginUser, Claims, AuthResponse, UserWithPassword, Category, CreateCategory};
 use bcrypt;
 use jsonwebtoken::{encode, EncodingKey, Header};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -79,3 +81,23 @@ pub async fn login(
 
 
 }
+
+pub async fn   create_category(
+    State(pool): State<PgPool>,
+    Json(body) : Json<CreateCategory>,
+)-> (StatusCode ,Json<Category>){
+
+    let category = sqlx::query_as!(
+        Category,
+        "INSERT INTO categories (name, parent_id) VALUES ($1, $2) RETURNING id, name, parent_id, created_at",
+        body.name,
+        body.parent_id
+
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    (StatusCode::CREATED , Json(category))
+
+    
+} 

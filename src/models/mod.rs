@@ -44,3 +44,19 @@ pub struct UserWithPassword {
     pub password_hash: String,
     pub created_at: Option<NaiveDateTime>,
 }
+
+#[derive(Debug ,Serialize , sqlx::FromRow)]
+
+pub struct Category {
+    pub id : Uuid ,
+    pub name : String ,
+    pub parent_id : Option<Uuid>,
+    pub created_at: Option<NaiveDateTime>,
+
+}
+
+#[derive(Deserialize)]
+pub struct CreateCategory {
+    pub name : String ,
+    pub parent_id : Option<Uuid>,
+}
